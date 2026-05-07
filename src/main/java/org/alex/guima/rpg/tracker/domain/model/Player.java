@@ -1,14 +1,13 @@
-package org.alex.guima.rpg.tracker.domain.entity;
+package org.alex.guima.rpg.tracker.domain.model;
 
 import io.quarkus.hibernate.reactive.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 
-@Entity
-public class Player extends PanacheEntity {
+public class Player {
 
     private String name;
 
-    public String getName() {
+    public String name() {
         return name;
     }
 }

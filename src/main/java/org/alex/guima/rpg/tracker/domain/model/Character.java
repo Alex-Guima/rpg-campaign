@@ -1,20 +1,14 @@
-package org.alex.guima.rpg.tracker.domain.entity;
+package org.alex.guima.rpg.tracker.domain.model;
 
-import io.quarkus.hibernate.reactive.panache.PanacheEntity;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.OneToOne;
-
-@MappedSuperclass
-public abstract class Character extends PanacheEntity {
+public abstract class Character {
 
     String name;
 
     String description;
 
-    @OneToOne
     Campaign campaign;
 
-    public String getName() {
+    public String name() {
         return name;
     }
 
@@ -22,7 +16,7 @@ public abstract class Character extends PanacheEntity {
         this.name = name;
     }
 
-    public String getDescription() {
+    public String description() {
         return description;
     }
 
@@ -30,7 +24,7 @@ public abstract class Character extends PanacheEntity {
         this.description = description;
     }
 
-    public Campaign getCampaign() {
+    public Campaign campaign() {
         return campaign;
     }
 
