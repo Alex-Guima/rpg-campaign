@@ -3,6 +3,8 @@ package org.alex.guima.rpg.tracker.infrastructure.persistence;
 import org.alex.guima.rpg.tracker.domain.model.Campaign;
 
 public class CampaignMapper {
+    private CampaignMapper() {}
+
     public static CampaignEntity toEntity(Campaign campaign) {
         CampaignEntity entity = new CampaignEntity();
         entity.setTitle(campaign.title());
