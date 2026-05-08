@@ -1,7 +1,6 @@
 package org.alex.guima.rpg.tracker.domain.repository;
 
 import org.alex.guima.rpg.tracker.domain.model.Campaign;
-import org.alex.guima.rpg.tracker.infrastructure.persistence.CampaignEntity;
 
 import java.util.List;
 import java.util.Optional;
