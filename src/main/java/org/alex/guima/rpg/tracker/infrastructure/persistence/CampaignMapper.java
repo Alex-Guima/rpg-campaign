@@ -7,6 +7,7 @@ public class CampaignMapper {
 
     public static CampaignEntity toEntity(Campaign campaign) {
         CampaignEntity entity = new CampaignEntity();
+        entity.id = campaign.id();
         entity.setTitle(campaign.title());
         entity.setDescription(campaign.description());
 
@@ -14,11 +15,9 @@ public class CampaignMapper {
     }
 
     public static Campaign toDomain(CampaignEntity entity) {
-        Campaign campaign = new Campaign();
-
-        campaign.setTitle(entity.title());
-        campaign.setDescription(entity.description());
-
-        return campaign;
+        if (entity == null) {
+            return null;
+        }
+        return new Campaign(entity.id, entity.title(), entity.description());
     }
 }

@@ -1,4 +1,6 @@
 package org.alex.guima.rpg.tracker.infrastructure.web.dto;
 
-public record CampaignResponseDto(String title, String description) {
+import java.util.UUID;
+
+public record CampaignResponseDto(UUID id, String title, String description) {
 }

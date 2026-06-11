@@ -1,6 +1,12 @@
 package org.alex.guima.rpg.tracker.domain.model;
 
+import java.util.UUID;
+
 public class Campaign {
+
+    private UUID id;
+    private String title;
+    private String description;
 
     public Campaign() {}
 
@@ -9,9 +15,19 @@ public class Campaign {
         this.description = description;
     }
 
-    private String title;
+    public Campaign(UUID id, String title, String description) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+    }
 
-    private String description;
+    public UUID id() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public String description() {
         return description;

@@ -5,5 +5,5 @@ import jakarta.enterprise.context.ApplicationScoped;
 import java.util.UUID;
 
 @ApplicationScoped
-public class PanacheCampaignRepository implements PanacheRepositoryBase<CampaignEntity, UUID> {
+public class PanachePlayerRepository implements PanacheRepositoryBase<PlayerEntity, UUID> {
 }

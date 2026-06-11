@@ -1,12 +1,20 @@
 package org.alex.guima.rpg.tracker.infrastructure.persistence;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.UUID;
 
 @Entity
 @Table(name = "Character_class")
-public class CharacterClassEntity extends PanacheEntity {
+public class CharacterClassEntity extends PanacheEntityBase {
+
+    @Id
+    @GeneratedValue
+    public UUID id;
+
     private String name;
 
     private String description;
