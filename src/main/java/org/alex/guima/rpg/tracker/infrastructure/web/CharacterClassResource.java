@@ -2,6 +2,8 @@ package org.alex.guima.rpg.tracker.infrastructure.web;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -36,7 +38,7 @@ public class CharacterClassResource {
 
     @Transactional
     @POST
-    public Response create(CharacterClassRequestDto request) {
+    public Response create(@Valid @NotNull CharacterClassRequestDto request) {
         CharacterClass created = createCharacterClassUseCase.execute(
                 new CharacterClass(null, request.name(), request.description()));
         return Response.status(Response.Status.CREATED).entity(CharacterClassResponseDto.from(created)).build();

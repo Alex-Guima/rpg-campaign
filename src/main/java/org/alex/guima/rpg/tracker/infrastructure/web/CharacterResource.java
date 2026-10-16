@@ -2,6 +2,8 @@ package org.alex.guima.rpg.tracker.infrastructure.web;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -51,7 +53,7 @@ public class CharacterResource {
     @Transactional
     @POST
     @Path("/non-playable")
-    public Response createNonPlayable(CreateNonPlayableCharacterRequestDto request) {
+    public Response createNonPlayable(@Valid @NotNull CreateNonPlayableCharacterRequestDto request) {
         var created = createNonPlayableCharacterUseCase.execute(new CreateNonPlayableCharacterCommand(
                 request.name(), request.description(), request.campaignId()));
         return Response.status(Response.Status.CREATED).entity(CharacterResponseDto.from(created)).build();
@@ -60,7 +62,7 @@ public class CharacterResource {
     @Transactional
     @POST
     @Path("/playable")
-    public Response createPlayable(CreatePlayableCharacterRequestDto request) {
+    public Response createPlayable(@Valid @NotNull CreatePlayableCharacterRequestDto request) {
         var created = createPlayableCharacterUseCase.execute(new CreatePlayableCharacterCommand(
                 request.name(), request.description(), request.campaignId(),
                 request.playerId(), request.characterClassId()));
@@ -88,7 +90,7 @@ public class CharacterResource {
     @Transactional
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") UUID id, UpdateCharacterRequestDto request) {
+    public Response update(@PathParam("id") UUID id, @Valid @NotNull UpdateCharacterRequestDto request) {
         return updateCharacterUseCase.execute(id, request.name(), request.description())
                 .map(character -> Response.ok(CharacterResponseDto.from(character)).build())
                 .orElseGet(() -> Response.status(Response.Status.NOT_FOUND).build());

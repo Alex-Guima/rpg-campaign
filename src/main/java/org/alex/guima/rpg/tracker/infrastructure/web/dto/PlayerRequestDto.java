@@ -1,4 +1,7 @@
 package org.alex.guima.rpg.tracker.infrastructure.web.dto;
 
-public record PlayerRequestDto(String name) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+public record PlayerRequestDto(@NotBlank @Size(max = 64) String name) {
 }

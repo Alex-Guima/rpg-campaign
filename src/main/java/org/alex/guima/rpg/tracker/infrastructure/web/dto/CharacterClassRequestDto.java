@@ -1,4 +1,9 @@
 package org.alex.guima.rpg.tracker.infrastructure.web.dto;
 
-public record CharacterClassRequestDto(String name, String description) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+public record CharacterClassRequestDto(
+        @NotBlank @Size(max = 64) String name,
+        @Size(max = 255) String description) {
 }
