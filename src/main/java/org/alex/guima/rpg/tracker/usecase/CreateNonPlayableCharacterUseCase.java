@@ -8,8 +8,6 @@ import org.alex.guima.rpg.tracker.domain.model.NonPlayableCharacter;
 import org.alex.guima.rpg.tracker.domain.repository.CampaignRepository;
 import org.alex.guima.rpg.tracker.domain.repository.CharacterRepository;
 
-import java.util.UUID;
-
 @ApplicationScoped
 public class CreateNonPlayableCharacterUseCase {
 
@@ -29,7 +27,6 @@ public class CreateNonPlayableCharacterUseCase {
                 .orElseThrow(() -> new CampaignNotFoundException(command.campaignId()));
 
         NonPlayableCharacter character = new NonPlayableCharacter();
-        character.setId(UUID.randomUUID());
         character.setName(command.name());
         character.setDescription(command.description());
         character.setCampaign(campaign);

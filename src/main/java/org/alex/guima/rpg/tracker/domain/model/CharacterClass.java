@@ -3,16 +3,21 @@ package org.alex.guima.rpg.tracker.domain.model;
 import java.util.UUID;
 
 public class CharacterClass {
-
     private UUID id;
-
     private String name;
+    private String description;
 
     public CharacterClass() {}
 
     public CharacterClass(UUID id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public CharacterClass(UUID id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
     }
 
     public UUID id() {
@@ -29,5 +34,13 @@ public class CharacterClass {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String description() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

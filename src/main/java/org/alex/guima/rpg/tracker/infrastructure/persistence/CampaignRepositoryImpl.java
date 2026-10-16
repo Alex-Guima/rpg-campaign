@@ -23,12 +23,11 @@ public class CampaignRepositoryImpl implements CampaignRepository {
     public Campaign save(Campaign campaign) {
         CampaignEntity entity = campaign.id() == null ? null : repository.findById(campaign.id());
         if (entity == null) {
-            entity = CampaignMapper.toEntity(campaign);
+            entity = new CampaignEntity();
             repository.persist(entity);
-        } else {
-            entity.setTitle(campaign.title());
-            entity.setDescription(campaign.description());
         }
+        entity.setTitle(campaign.title());
+        entity.setDescription(campaign.description());
         return CampaignMapper.toDomain(entity);
     }
 

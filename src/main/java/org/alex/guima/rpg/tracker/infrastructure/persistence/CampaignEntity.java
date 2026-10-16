@@ -4,7 +4,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class CampaignEntity extends PanacheEntityBase {
 
     private String description;
 
-    @OneToMany
+    @ManyToMany
     private List<PlayerEntity> players;
 
     public String title() {
