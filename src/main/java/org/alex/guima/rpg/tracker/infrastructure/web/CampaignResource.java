@@ -2,6 +2,8 @@ package org.alex.guima.rpg.tracker.infrastructure.web;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -37,7 +39,7 @@ public class CampaignResource {
 
     @Transactional
     @POST
-    public Response create(CreateCampaignRequestDto request) {
+    public Response create(@Valid @NotNull CreateCampaignRequestDto request) {
         Campaign campaign = new Campaign(request.title(), request.description());
 
         var created = createCampaignUseCase.execute(campaign);
@@ -58,7 +60,7 @@ public class CampaignResource {
     @Transactional
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") UUID id, UpdateCampaignRequestDto request) {
+    public Response update(@PathParam("id") UUID id, @Valid @NotNull UpdateCampaignRequestDto request) {
         Campaign updatedCampaign = new Campaign(request.title(), request.description());
         return updateCampaignUseCase.execute(id, updatedCampaign)
                 .map(campaign -> new CampaignResponseDto(campaign.id(), campaign.title(), campaign.description()))

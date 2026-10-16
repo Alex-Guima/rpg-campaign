@@ -19,7 +19,7 @@ public class PlayerEntity extends PanacheEntityBase {
 
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "player")
     private List<CharacterEntity> characters;
 
     public String getName() {

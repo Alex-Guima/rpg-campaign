@@ -14,8 +14,6 @@ import org.alex.guima.rpg.tracker.domain.repository.CharacterClassRepository;
 import org.alex.guima.rpg.tracker.domain.repository.CharacterRepository;
 import org.alex.guima.rpg.tracker.domain.repository.PlayerRepository;
 
-import java.util.UUID;
-
 @ApplicationScoped
 public class CreatePlayableCharacterUseCase {
 
@@ -47,7 +45,6 @@ public class CreatePlayableCharacterUseCase {
                 .orElseThrow(() -> new CharacterClassNotFoundException(command.characterClassId()));
 
         PlayableCharacter character = new PlayableCharacter();
-        character.setId(UUID.randomUUID());
         character.setName(command.name());
         character.setDescription(command.description());
         character.setCampaign(campaign);

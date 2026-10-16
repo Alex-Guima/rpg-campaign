@@ -3,6 +3,7 @@ package org.alex.guima.rpg.tracker.usecase;
 import org.alex.guima.rpg.tracker.domain.model.Character;
 import org.alex.guima.rpg.tracker.domain.repository.CharacterRepository;
 
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -23,5 +24,12 @@ public class FakeCharacterRepository implements CharacterRepository {
     @Override
     public Optional<Character> findById(UUID id) {
         return Optional.ofNullable(store.get(id));
+    }
+
+    @Override
+    public List<Character> findByCampaignId(UUID campaignId) {
+        return store.values().stream()
+                .filter(character -> character.campaign() != null && campaignId.equals(character.campaign().id()))
+                .toList();
     }
 }
