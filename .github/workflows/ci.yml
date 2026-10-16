@@ -24,5 +24,51 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      # Unit tests use in-memory fakes; @QuarkusTest classes start PostgreSQL
+      # through Dev Services, which uses the Docker daemon on the runner.
+      - name: Run tests
+        run: ./gradlew test
+
+      - name: Summarize test results
+        if: always()
+        run: |
+          python3 - <<'EOF' >> "$GITHUB_STEP_SUMMARY"
+          import csv, glob, xml.etree.ElementTree as ET
+          tests = failures = errors = skipped = 0
+          failed = []
+          for path in glob.glob("build/test-results/test/*.xml"):
+              suite = ET.parse(path).getroot()
+              tests += int(suite.get("tests", 0))
+              failures += int(suite.get("failures", 0))
+              errors += int(suite.get("errors", 0))
+              skipped += int(suite.get("skipped", 0))
+              for case in suite.iter("testcase"):
+                  if case.find("failure") is not None or case.find("error") is not None:
+                      failed.append(f"{case.get('classname')}.{case.get('name')}")
+          print("## Tests")
+          print(f"| Total | Passed | Failed | Errors | Skipped |\n|---|---|---|---|---|")
+          print(f"| {tests} | {tests - failures - errors - skipped} | {failures} | {errors} | {skipped} |")
+          for name in failed:
+              print(f"- :x: `{name}`")
+          try:
+              with open("build/jacoco-report/jacoco.csv") as f:
+                  rows = list(csv.DictReader(f))
+              covered = sum(int(r["LINE_COVERED"]) for r in rows)
+              missed = sum(int(r["LINE_MISSED"]) for r in rows)
+              print(f"\n**Line coverage:** {100 * covered / max(covered + missed, 1):.1f}%")
+          except FileNotFoundError:
+              print("\nNo coverage report found.")
+          EOF
+
+      - name: Upload test and coverage reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            build/reports/tests/test/
+            build/jacoco-report/
+          if-no-files-found: ignore
+
       - name: Build
-        run: ./gradlew build
+        run: ./gradlew build -x test
