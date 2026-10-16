@@ -21,19 +21,13 @@ public class CampaignRepositoryImpl implements CampaignRepository {
 
     @Override
     public Campaign save(Campaign campaign) {
-        CampaignEntity entity;
-        if (campaign.id() != null) {
-            entity = repository.findById(campaign.id());
-            if (entity == null) {
-                entity = CampaignMapper.toEntity(campaign);
-                repository.persist(entity);
-            } else {
-                entity.setTitle(campaign.title());
-                entity.setDescription(campaign.description());
-            }
-        } else {
+        CampaignEntity entity = campaign.id() == null ? null : repository.findById(campaign.id());
+        if (entity == null) {
             entity = CampaignMapper.toEntity(campaign);
             repository.persist(entity);
+        } else {
+            entity.setTitle(campaign.title());
+            entity.setDescription(campaign.description());
         }
         return CampaignMapper.toDomain(entity);
     }
